@@ -11,9 +11,7 @@ GAME RULES:
 var scores, roundScore, activePlayer;
 scores = [0,0];
 roundScore = 0;
-activePlayer = 1;
-
-
+activePlayer = 0;
 //query selector to select element , selects id =current + player zero or one
 //notice textContent method to change text only
 //document.querySelector('#current-' + activePlayer).textContent = dice;
@@ -32,6 +30,12 @@ activePlayer = 1;
 //change display property of dice image
 //note use style , then property and value
 document.querySelector('.dice').style.display = 'none';
+//get element by id example, note can use query here as well
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+//set current score to zero as well
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
 
 //event
 //this is an anonymous function no name
@@ -41,9 +45,52 @@ document.querySelector('.btn-roll').addEventListener('click',function(){
 
   //1.random number
   var dice = (Math.floor(Math.random()*6))+1;
+
   //2.display result
   diceDOM.style.display = 'block';
   diceDOM.src = 'dice-' + dice + '.png';
+
   //3. update the round score if rolled number not 1
-  document.querySelector('#current-' + activePlayer).textContent = roundScore += dice;
-});
+  if (dice ===1){
+    //set round score to zero , lose turn, change active status
+    roundScore = 0;
+    document.querySelector('#current-' + activePlayer).textContent = 0;
+    activePlayer === 0 ? activePlayer=1:activePlayer=0;
+  } else{
+    //update round score, display it in current score
+    roundScore += dice;
+    document.querySelector('#current-' + activePlayer).textContent = roundScore;
+  }
+});//end of roll dice listener anonymous function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*******************************************************************
