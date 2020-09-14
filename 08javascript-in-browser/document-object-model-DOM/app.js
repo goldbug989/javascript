@@ -50,20 +50,83 @@ document.querySelector('.btn-roll').addEventListener('click',function(){
   diceDOM.style.display = 'block';
   diceDOM.src = 'dice-' + dice + '.png';
 
-  //3. update the round score if rolled number not 1
-  if (dice ===1){
+  //3. update the current round score
+  if (dice === 1){
     //set round score to zero , lose turn, change active status
     roundScore = 0;
+    //set text in document for current player score to zero
     document.querySelector('#current-' + activePlayer).textContent = 0;
-    activePlayer === 0 ? activePlayer=1:activePlayer=0;
-  } else{
+
+    //switch control to other player
+    nextPlayer();
+    } else{
     //update round score, display it in current score
     roundScore += dice;
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
+
+
   }
 });//end of roll dice listener anonymous function
 
+//anonymous function listener for hold btn
+document.querySelector('.btn-hold').addEventListener('click',function(){
+    //add roundscore to activePlayer total
+    scores[activePlayer] += roundScore;
 
+    //change active player total score in document
+    document.getElementById('score-'+activePlayer).textContent = scores[activePlayer];
+
+    //reset active player round score to zero
+    roundScore = 0;
+
+    //set text in document for current player score to zero
+    document.querySelector('#current-' + activePlayer).textContent = 0;
+
+    //do we have a winner?
+    if (scores[activePlayer] >= 30){
+      //change player 1 text to WINNER!
+      document.getElementById('name-' + activePlayer).textContent = 'WINNER';
+
+      //disable roll & hold btns
+      document.querySelector('.btn-roll').style.display = 'none';
+      document.querySelector('.btn-hold').style.display = 'none';
+    }
+    //change player
+    nextPlayer();
+
+});//end of hold btn click listener anon function
+
+document.querySelector('.btn-new').addEventListener('click',function(){
+  //reset scores
+  scores = [0,0];
+  //reset dice
+  document.querySelector('.dice').style.display = 'none';
+  //set player one active
+  activePlayer=0;
+  document.querySelector('.player-0-panel').classList.add('active');
+  document.querySelector('.player-1-panel').classList.remove('active');
+  //reset player scores in document
+  document.getElementById('score-0').textContent = 0;
+  document.getElementById('score-1').textContent = 0;
+  //enable roll & hold btns
+  document.querySelector('.btn-roll').style.display = 'block';
+  document.querySelector('.btn-hold').style.display = 'block';
+  //reset player name textContent
+  document.getElementById('name-0').textContent = 'PLAYER 1';
+  document.getElementById('name-1').textContent = 'PLAYER 2';
+});//end of anonymous function for btn new
+
+function nextPlayer(){
+  //change active player
+  activePlayer === 0 ? activePlayer=1:activePlayer=0;
+
+  //toggle active class for player panels
+  document.querySelector('.player-0-panel').classList.toggle('active');
+  document.querySelector('.player-1-panel').classList.toggle('active');
+
+  //note use style , then property and value
+  //document.querySelector('.dice').style.display = 'none';
+}
 
 
 
