@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 //declare global context variables
-var scores, roundScore, ,winningScore, activePlayer,gamePlaying;
+var scores, roundScore, activePlayer,gamePlaying, winningScore;
 //init function resets scores and player control
 init();
 
@@ -102,7 +102,9 @@ function init(){
   roundScore = 0;
   activePlayer = 0;
   gamePlaying = true;
-  winningScore = 20;
+
+  //get winning score from player
+  winningScore = prompt('please enter winning score');
 
   //change display property of dice image
   //note use style , then property and value
