@@ -60,6 +60,16 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
       //reset active player round score to zero
       roundScore = 0;
 
+      //get input from document for winning score amount
+      var input = document.querySelector('.winning-score').value;
+
+      //undefined, 0, null or "" are COERCED as false
+      if (input){
+        winningScore = input;
+      }else {
+        winningScore = 30;
+      }
+
       //set text in document for current player score to zero
       document.querySelector('#current-' + activePlayer).textContent = 0;
 
@@ -75,7 +85,7 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
 });//end of hold btn click listener anon function
 
 //****************************************************************************
-//                        new button
+//                        new game button
 //****************************************************************************
 //new button listener ...new game ...notice init fn passed as variable no parens
 document.querySelector('.btn-new').addEventListener('click',init);
@@ -104,7 +114,7 @@ function init(){
   gamePlaying = true;
 
   //get winning score from player
-  winningScore = prompt('please enter winning score');
+  winningScore = 10;
 
   //change display property of dice image
   //note use style , then property and value
