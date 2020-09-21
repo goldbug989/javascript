@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 //declare global context variables
-var scores, roundScore, ,winningScore, activePlayer,gamePlaying;
+var scores, roundScore,winningScore, activePlayer,gamePlaying;
 //init function resets scores and player control
 init();
 
