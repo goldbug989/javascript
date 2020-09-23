@@ -79,7 +79,9 @@ var UIController = (function(){
     inputType: '.add__type',
     inputDesc:  '.add__description',
     inputValue: '.add__value',
-    inputBtn: '.add__btn'
+    inputBtn: '.add__btn',
+    incomeContainer: '.income__list',
+    expensesContainer: '.expenses__list'
   };
 //anything that needs to be shared will be returned as a function
   return{
@@ -87,13 +89,51 @@ var UIController = (function(){
       return {
         type : document.querySelector(DOMstrings.inputType).value,//will be 'inc' or 'exp'
         desc : document.querySelector(DOMstrings.inputDesc).value,
-        value : document.querySelector(DOMstrings.inputValue).value
+        value : parseFloat(document.querySelector(DOMstrings.inputValue).value)
       };
+    },
 
-    },//also return getDOMstrings function
+    addListItem: function(obj, type){
+        var html, newHtml, element;
+
+        //create html string with placeholder text
+        if (type === 'inc'){
+          element = DOMstrings.incomeContainer;
+          html ='<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+      } else if (type === 'exp'){
+          element = DOMstrings.expensesContainer;
+          html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+      }
+
+        //replace placeholder text with actual data
+        newHtml = html.replace('%id%',obj.id);
+        newHtml = newHtml.replace('%description%',obj.desc);
+        newHtml = newHtml.replace('%value%',obj.value);
+
+        //insert the html into the dom
+        document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
+    },
+
+    clearFields: function(){
+      var fields, fieldsArr;
+      //importantly ..below returns a list
+      fields = document.querySelectorAll(DOMstrings.inputDesc + ', ' +
+      DOMstrings.inputValue);
+      //uses array slice mehtod on fields list---call(this)
+      fieldsArr = Array.prototype.slice.call(fields);
+      //now we can loop over array//foreach allows access to 3 args below
+      fieldsArr.forEach(function(current ,index, array){
+          current.value = "";
+      });
+      fieldsArr[0].focus();
+
+    },
+
+    //also return getDOMstrings function
     getDOMstrings: function(){
       return DOMstrings;
     }
+
   };
 
 })();
@@ -118,6 +158,15 @@ var controller = (function(budgetCtrl,UICtrl){
       });
   };
 
+  var updateBudget = function(){
+
+    //1 calculate budget
+
+    //2 return the budget
+
+    //3 display the budget on the UI
+
+  }
 
   var ctrlAddItem = function(){
     var input, newItem;
@@ -126,11 +175,18 @@ var controller = (function(budgetCtrl,UICtrl){
     //1 get the field input data
     var input = UIController.getinput();
     console.log(input);
-    //2 add the item to the budget budgetController
-    newItem = budgetCtrl.addItem(input.type,input.desc,input.value);
-    //3 add the item to the user interface
-    //4 calculate the budget
-    //5 display the budget on UI
+    //check input valid...
+    if (input.desc !== "" && !isNan(input.value) && input.value > 0)
+      {
+      //2 add the item to the budget budgetController
+      newItem = budgetCtrl.addItem(input.type,input.desc,input.value);
+      //3 add the item to the user interface
+      UIController.addListItem(newItem,input.type);
+      //4 clear the fields
+      UIController.clearFields();
+      //5 calculate and update the budget
+      updateBudget();
+      }
 
   }
 
