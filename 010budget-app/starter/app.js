@@ -19,6 +19,16 @@ var budgetController = (function(){
     this.value = value;
   };
 
+  var calculateTotal = function(type){
+    var sum = 0;
+    data.allItems[type].forEach(function(current){
+      sum += current.value;
+    });
+
+    data.totals[type] = sum;
+
+  };
+
 //it is best to keep all the data in one structure
   var data = {
     //object consisting of expenses array and incomes array
@@ -30,7 +40,9 @@ var budgetController = (function(){
     totals: {
       exp:0,
       inc:0
-    }
+    },
+    budget:0,
+    percentage:-1
 }
   //return an object containing public method
   //allowing other modules to add a new item to data structure
@@ -60,7 +72,30 @@ var budgetController = (function(){
 
       //return new element
       return newItem;
+    },
 
+    calculateBudget: function(){
+
+        //1 calculate total income and expenses
+        calculateTotal('exp');
+        calculateTotal('inc');
+        //2 calculate budget: income - expenses
+        data.budget = data.totals.inc - data.totals.exp;
+        //3 calculate the percentage of income that we spent
+        if (data.totals.inc > 0){
+          data.percentage = Math.round((data.totals.exp / data.totals.inc)*100);
+        } else {
+          data.percentage = -1;
+        }
+    },
+
+    getBudget: function(){
+        return {
+          budget: data.budget,
+          totalIncome: data.totals.inc,
+          totalExpenses: data.totals.exp,
+          percentage: data.percentage
+        };
 
     },
 
@@ -161,11 +196,11 @@ var controller = (function(budgetCtrl,UICtrl){
   var updateBudget = function(){
 
     //1 calculate budget
-
+    budgetCtrl.calculateBudget();
     //2 return the budget
-
+    var budget = budgetCtrl.getBudget();
     //3 display the budget on the UI
-
+    console.log(budget);
   }
 
   var ctrlAddItem = function(){
@@ -176,7 +211,7 @@ var controller = (function(budgetCtrl,UICtrl){
     var input = UIController.getinput();
     console.log(input);
     //check input valid...
-    if (input.desc !== "" && !isNan(input.value) && input.value > 0)
+    if (input.desc !== "" && !isNaN(input.value) && input.value > 0)
       {
       //2 add the item to the budget budgetController
       newItem = budgetCtrl.addItem(input.type,input.desc,input.value);
