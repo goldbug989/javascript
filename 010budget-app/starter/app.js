@@ -1,10 +1,11 @@
-//budgetController
+
 // use immediate invoked expression
-//
 //this module pattern returns an object
 // containing functions you want public to use
+//******************************************************************************
+//******************************************************************************
 
-//budget controller
+//BUDGET CONTROLLER
 var budgetController = (function(){
   //function constructors ..
   var Expense = function(id,desc,value){
@@ -74,6 +75,18 @@ var budgetController = (function(){
       return newItem;
     },
 
+
+    deleteItem: function(type, id){
+      //map method returns an array of items with
+      data.allItems[type].map(function(current){
+        if (current.value === )
+      });
+
+    },
+
+
+
+
     calculateBudget: function(){
 
         //1 calculate total income and expenses
@@ -106,9 +119,10 @@ var budgetController = (function(){
   };
 })();
 
+//******************************************************************************
+//******************************************************************************
 
-
-//UI controller
+//UI CONTROLLER
 var UIController = (function(){
   var DOMstrings = {
     inputType: '.add__type',
@@ -116,7 +130,12 @@ var UIController = (function(){
     inputValue: '.add__value',
     inputBtn: '.add__btn',
     incomeContainer: '.income__list',
-    expensesContainer: '.expenses__list'
+    expensesContainer: '.expenses__list',
+    budgetLabel: '.budget__value',
+    incomeLabel: '.budget__income--value',
+    expenseLabel: '.budget__expenses--value',
+    percentageLabel: '.budget__expenses--percentage',
+    deleteBtn: '.container'
   };
 //anything that needs to be shared will be returned as a function
   return{
@@ -134,10 +153,10 @@ var UIController = (function(){
         //create html string with placeholder text
         if (type === 'inc'){
           element = DOMstrings.incomeContainer;
-          html ='<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+          html ='<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       } else if (type === 'exp'){
           element = DOMstrings.expensesContainer;
-          html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+          html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
 
         //replace placeholder text with actual data
@@ -149,12 +168,13 @@ var UIController = (function(){
         document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
     },
 
+
     clearFields: function(){
       var fields, fieldsArr;
       //importantly ..below returns a list
       fields = document.querySelectorAll(DOMstrings.inputDesc + ', ' +
       DOMstrings.inputValue);
-      //uses array slice mehtod on fields list---call(this)
+      //uses array slice mehtod on fields list---call(this)--allows array slice method to be used on list
       fieldsArr = Array.prototype.slice.call(fields);
       //now we can loop over array//foreach allows access to 3 args below
       fieldsArr.forEach(function(current ,index, array){
@@ -163,6 +183,20 @@ var UIController = (function(){
       fieldsArr[0].focus();
 
     },
+
+    displayBudget: function(obj){
+
+        document.querySelector(DOMstrings.budgetLabel).textContent = obj.budget;
+        document.querySelector(DOMstrings.incomeLabel).textContent = obj.totalIncome;
+        document.querySelector(DOMstrings.expenseLabel).textContent = obj.totalExpenses;
+        if (obj.percentage > 0){
+          document.querySelector(DOMstrings.percentageLabel).textContent = obj.percentage + '%';
+        } else {
+          document.querySelector(DOMstrings.percentageLabel).textContent = '---';
+
+        }
+    },
+
 
     //also return getDOMstrings function
     getDOMstrings: function(){
@@ -173,7 +207,8 @@ var UIController = (function(){
 
 })();
 
-
+//******************************************************************************
+//******************************************************************************
 
 //GLOBAL APP CONTROLLER
 //interacts with other modules..the other modules are passed in
@@ -191,6 +226,9 @@ var controller = (function(budgetCtrl,UICtrl){
           ctrlAddItem();
         }
       });
+
+      document.querySelector(dom.deleteBtn).addEventListener('click',ctrlDeleteItem);
+
   };
 
   var updateBudget = function(){
@@ -200,7 +238,7 @@ var controller = (function(budgetCtrl,UICtrl){
     //2 return the budget
     var budget = budgetCtrl.getBudget();
     //3 display the budget on the UI
-    console.log(budget);
+    UIController.displayBudget(budget);
   }
 
   var ctrlAddItem = function(){
@@ -221,12 +259,46 @@ var controller = (function(budgetCtrl,UICtrl){
       UIController.clearFields();
       //5 calculate and update the budget
       updateBudget();
-      }
+    }
 
-  }
+  };
+
+
+
+      var ctrlDeleteItem = function(event){
+        var itemID, splitID, type, ID ;
+        //get item
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+
+        if (itemID){
+            //inc-1
+            //split method returns an array of strings before and after split string
+            splitID = itemID.split('-');
+            //type will be inc or exp
+            type = splitID[0];
+            //ID will be index ??
+            ID = splitID[1];
+
+            //delete item from data structure
+            budgetCtrl.deleteItem(type,ID);
+            //remove item from UI
+
+            //update and show the new budget
+
+
+        }
+
+      };
+
 
   return {//when app starts ...do all this
     init: function(){
+
+      UIController.displayBudget({budget: 0,
+                totalIncome: 0,
+                totalExpenses: 0,
+                percentage: -1});
+
       setupEventListeners();
     }
   };
