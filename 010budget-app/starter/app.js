@@ -170,6 +170,12 @@ var UIController = (function(){
         document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
     },
 
+    deleteListItem: function(selectorID){
+      var el = document.getElementById(selectorID);
+        //you can only remove child. so get parent then removeChild
+        el.parentNode.removeChild(el);
+
+    },
 
     clearFields: function(){
       var fields, fieldsArr;
@@ -241,7 +247,17 @@ var controller = (function(budgetCtrl,UICtrl){
     var budget = budgetCtrl.getBudget();
     //3 display the budget on the UI
     UIController.displayBudget(budget);
-  }
+  };
+
+  var updatePercentages = function(){
+
+    //1 calculate percentages
+
+    //2 read percentages from budget conrtoller
+
+    //3 update the UI with the new percentages
+
+  };
 
   var ctrlAddItem = function(){
     var input, newItem;
@@ -265,8 +281,6 @@ var controller = (function(budgetCtrl,UICtrl){
 
   };
 
-
-
       var ctrlDeleteItem = function(event){
         var itemID, splitID, type, ID ;
         //get item
@@ -280,12 +294,12 @@ var controller = (function(budgetCtrl,UICtrl){
             type = splitID[0];
             //ID will be index ??
             ID = parseInt(splitID[1]);
-
             //delete item from data structure
             budgetCtrl.deleteItem(type,ID);
-            //remove item from UI
-
+            //remove item from UI..pass in the ID of element to remove
+            UIController.deleteListItem(itemID);
             //update and show the new budget
+            updateBudget();
 
 
         }
