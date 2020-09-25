@@ -23,7 +23,7 @@ var budgetController = (function(){
     }
   };
 
-  Espense.prototype.getPercentage = function(){
+  Expense.prototype.getPercentage = function(){
     return this.percentage;
   };
 
@@ -119,7 +119,23 @@ var budgetController = (function(){
 
     calculatePercentages: function(){
 
+        data.allItems.exp.forEach(function(cur){
+          cur.calcPercentage(data.totals.inc);
+        });
+
+
     },
+
+    getPercentages: function(){
+
+        var allPerc = data.allItems.exp.map(function(cur){
+          return cur.getPercentage();
+        });
+        return allPerc;
+
+    },
+
+
 
 
     getBudget: function(){
@@ -155,8 +171,32 @@ var UIController = (function(){
     incomeLabel: '.budget__income--value',
     expenseLabel: '.budget__expenses--value',
     percentageLabel: '.budget__expenses--percentage',
-    deleteBtn: '.container'
+    deleteBtn: '.container',
+    expensesPercLabel: '.item__percentage'
   };
+//private function format number
+var  formatNumber = function(num, type){
+    var numSplit;
+    // formats numbers, adds commas, lines up decimal, adds + or -
+    num = Math.abs(num);
+    num = num.toFixed(2);
+    //returns array
+    numSplit = num.split('.');
+
+    int = numSplit[0];
+    if (int.length > 3){
+      int = int.substr(0, int.length - 3) + ',' + int.substr(int.length -3, 3);
+
+    }
+    dec = numSplit[1];
+
+    return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec;
+
+  };
+
+
+
+
 //anything that needs to be shared will be returned as a function
   return{
     getinput: function(){
@@ -182,7 +222,7 @@ var UIController = (function(){
         //replace placeholder text with actual data
         newHtml = html.replace('%id%',obj.id);
         newHtml = newHtml.replace('%description%',obj.desc);
-        newHtml = newHtml.replace('%value%',obj.value);
+        newHtml = newHtml.replace('%value%',formatNumber(obj.value, type));
 
         //insert the html into the dom
         document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
@@ -212,15 +252,39 @@ var UIController = (function(){
 
     displayBudget: function(obj){
 
-        document.querySelector(DOMstrings.budgetLabel).textContent = obj.budget;
-        document.querySelector(DOMstrings.incomeLabel).textContent = obj.totalIncome;
-        document.querySelector(DOMstrings.expenseLabel).textContent = obj.totalExpenses;
+        obj.budget > 0 ? type = 'inc': type = 'exp';
+
+        document.querySelector(DOMstrings.budgetLabel).textContent = formatNumber(obj.budget,type);
+        document.querySelector(DOMstrings.incomeLabel).textContent = formatNumber(obj.totalIncome,'inc');
+        document.querySelector(DOMstrings.expenseLabel).textContent = formatNumber(obj.totalExpenses,'exp');
         if (obj.percentage > 0){
           document.querySelector(DOMstrings.percentageLabel).textContent = obj.percentage + '%';
         } else {
           document.querySelector(DOMstrings.percentageLabel).textContent = '---';
 
         }
+    },
+
+    displayPercentages: function(percentages){
+      var fields;
+
+      //returns a node list
+      fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
+      //lists do not have a foreach method so we are creating one for node list
+      var nodeListForEach = function(list, callback){
+          for (var i =0; i < list.length; i++){
+            callback(list[i], i);
+          }
+      };
+
+      nodeListForEach(fields, function(current, index){
+            if (percentages[index] > 0 ){
+              current.textContent = percentages[index] + '%';
+            } else{
+              current.textContent = '---';
+            }
+      });
+
     },
 
 
@@ -270,10 +334,13 @@ var controller = (function(budgetCtrl,UICtrl){
   var updatePercentages = function(){
 
     //1 calculate percentages
+    budgetCtrl.calculatePercentages();
 
     //2 read percentages from budget conrtoller
+    var percentages = budgetCtrl.getPercentages();
 
     //3 update the UI with the new percentages
+    UIController.displayPercentages(percentages);
 
   };
 
