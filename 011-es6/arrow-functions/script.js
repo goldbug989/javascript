@@ -64,3 +64,46 @@ const box6 = {
   }
 }
 box6.clickMe();
+
+
+function Person (name){
+  this.name = name;
+}
+//es5
+Person.prototype.myFriends4 =
+function(friends){
+
+  var arr = friends.map(function(el){
+
+    return this.name + ' is friends with  ' + el;
+
+  }.bind(this));
+  console.log(arr);
+}
+var friends = ['bob','john','sally','betty'];
+new Person('john').myFriends4(friends);
+
+//es6
+
+Person.prototype.myFriends6 =
+function(friends){
+
+  var arr = friends.map(el=>
+  `${this.name} is friends with  ${el}`);
+  console.log(arr);
+}
+new Person('wendy').myFriends6(friends);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//EOF
