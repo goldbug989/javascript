@@ -66,6 +66,12 @@ function isFullAge62(limit,...years){
 }
 isFullAge62(21,1990,1999,2000,2010,1954);
 
+//messing around here
+h1list = document.querySelectorAll('.box');
+h1Arr = Array.from(h1list);
+console.log(h1Arr);
+h1Arr.forEach(cur => cur.style.background = 'dodgerblue');
+
 
 
 
