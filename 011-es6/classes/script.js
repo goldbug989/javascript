@@ -44,3 +44,21 @@ class Person6{
 let sally = new Person6('sally','struthers',1970);
 Person6.greeting();
 sally.calcAge();
+
+
+class Athlete6 extends Person6{
+  constructor(first,last,byear, olympicGame, medals){
+    super(first,last,byear);
+    this.olympicGame=olympicGame;
+    this.medals=medals;
+
+  }
+  wonMedal(){
+    this.medals++;
+    console.log(this.medals);
+  }
+
+}
+const johnAthlete6 =
+new Athlete6('john','adams',1980,3,4);
+johnAthlete6.wonMedal();
