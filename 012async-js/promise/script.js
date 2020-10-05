@@ -22,6 +22,7 @@ const getIds = new Promise((resolve, reject) => {//executor fn
 
 const getRecipe = recID => {
   return new Promise((resolve,reject) => {
+    //async code
      setTimeout((id) => {
 
         const recipe = {title:'tomato pasta',
@@ -31,7 +32,20 @@ const getRecipe = recID => {
   });
 };
 
+const getRelated = publisher => {
+  return new Promise((resolve, reject) =>{
+    setTimeout(pub =>{
+        const recipe = {title:'italian pizza', publisher:'john Adams'};
+        resolve(`${pub}: ${recipe.title}`);
 
+    },1500,publisher);
+  });
+};
+
+//88888888888888888888888888888888888888888888888888888888888888888888
+//88888888888888888888888888888888888888888888888888888888888888888888
+//                        consume promises
+//88888888888888888888888888888888888888888888888888888888888888888888
 //pass in callback fn for when promise fulfilled
 getIds
 .then(IDs => {//always arg of what returned from fullfilled promise
@@ -40,7 +54,12 @@ getIds
 })
 .then(recipe => {//no callback hell
   console.log(recipe);
+  return getRelated('john a');
+})
+.then(recipe =>{
+  console.log(recipe);
 })
 .catch(error => {//incase of reject you get this
   console.log('error!!!');
 });
+//8888888888888888888888888888888888888888888888888888888888888888888
