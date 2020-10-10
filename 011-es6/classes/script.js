@@ -61,4 +61,5 @@ class Athlete6 extends Person6{
 }
 const johnAthlete6 =
 new Athlete6('john','adams',1980,3,4);
-johnAthlete6.wonMedal();
+johnAthlete6.wonMedal();//5
+johnAthlete6.calcAge();//40
