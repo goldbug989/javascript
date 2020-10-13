@@ -1,36 +1,30 @@
-//eport this configuration
-//4 core concepts entry, output,loaders,plugins
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+ 
 module.exports = {
-    entry: './src/js/index.js',
-    output:{
-        //need absolute path, use path package 
-        //__dirname is current absolute path, join with dist/js
+    entry: ['@babel/polyfill', './src/js/index.js'],
+    output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/bundle.js'
+        filename: 'js/bundle.js',
     },
     devServer: {
         contentBase: './dist'
     },
-    plugins:[
+    plugins: [
         new HtmlWebpackPlugin({
-            filename:'index.html',
+            filename: 'index.html',
             template: './src/index.html'
         })
     ],
-    module{
-        rules:[
+    module: {
+        rules: [
             {
                 test: /\.js$/,
-                exclude: /node_moddules/,
-                use:{
+                exclude: /node_modules/,
+                use: {
                     loader: 'babel-loader'
                 }
             }
         ]
     }
-
-
 };
