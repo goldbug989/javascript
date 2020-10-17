@@ -44,33 +44,42 @@ const renderRecipe = recipe => {
     elements.searchResList.insertAdjacentHTML('beforeend',markup);
 };
 
-const createButton = (page, type) => `
+//type prev or next button
+const createButton = (page, type) => {`
+        <button class="btn-inline results__btn--${type}" data-goto=${(type === 'prev') ? page -1 : page +1}>
+            <svg class="search__icon">
+                <use href="img/icons.svg#icon-triangle-${(type === prev ? 'left' : 'right')}"></use>
+            </svg>
+            <span>Page ${(type === 'prev') ? page -1 : page +1}</span>
+        </button>`
+    };
+        
+        // <button class="btn-inline results__btn--next">
+        //     <span>Page 3</span>
+        //     <svg class="search__icon">
+        //         <use href="img/icons.svg#icon-triangle-right"></use>
+        //     </svg>
+        // </button>
+        // -->   
 
-    <!--
-    <button class="btn-inline results__btn--prev">
-        <svg class="search__icon">
-            <use href="img/icons.svg#icon-triangle-left"></use>
-        </svg>
-        <span>Page 1</span>
-    </button>
-    <button class="btn-inline results__btn--next">
-        <span>Page 3</span>
-        <svg class="search__icon">
-            <use href="img/icons.svg#icon-triangle-right"></use>
-        </svg>
-    </button>
-    -->
-`;
+
 
 const renderButtons = (page, numResults, resPerPage) => {
     const pages = Math.ceil(numResults / resPerPage);
 
+    let button;
     if (page === 1 && pages > 1) {
         //next button only
+        button = createButton(page,'next');
     }else if (page < pages){
         //both prev and next button
+        button = `
+            ${createButton(page,'prev')}
+            ${createButton(page,'next')}
+       `;
     }else if (page === pages && pages > 1){
         //prev button only
+        button = createButton(page,'prev');
     }
 };
 
