@@ -8,6 +8,7 @@ export const clearInput = () => {
 
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
+    elements.searchResPages.innerHTML = '';
 };
 
 const limitRecipeTitle = (title, limit = 19) => {
@@ -47,12 +48,12 @@ const renderRecipe = recipe => {
 //type prev or next button
 const createButton = (page, type) => `
         <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page -1 : page +1}>
-            <svg class="search__icon">
+             <span>Page ${type === 'prev' ? page -1 : page +1}</span>     
+             <svg class="search__icon">
                 <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
             </svg>
-            <span>Page ${type === 'prev' ? page -1 : page +1}</span>
-        </button>`
-    ;
+        </button>
+ `;
         
         // <button class="btn-inline results__btn--next">
         //     <span>Page 3</span>
@@ -84,7 +85,7 @@ const renderButtons = (page, numResults, resPerPage) => {
     elements.searchResPages.insertAdjacentHTML("afterbegin",button);
 };
 
-export const renderResults = (recipes, page = 2, resPerPage = 10) => {
+export const renderResults = (recipes, page = 1, resPerPage = 10) => {
     //render results of current page
     const start = (page - 1) * (resPerPage);
     const end = page * resPerPage;
