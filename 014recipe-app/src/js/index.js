@@ -111,3 +111,18 @@ const controlRecipe = async () => {
 // window.addEventListener('load',controlRecipe);
 //                   replace above code with this!
 ['hashchange','load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+//event delegation ..use recipe element because it exists on load, buttons do not
+//handling recipe button clicks
+elements.recipe.addEventListener('click', e => {
+
+    if (e.target.matches('.btn-decrease , .btn-decrease *')) {
+        //decrease button is clicked
+        state.recipe.updateServings('dec');
+    } else if (e.target.matches('.btn-increase , .btn-increase *')) {
+        //increase button is clicked
+        state.recipe.updateServings('inc');
+    }
+    console.log(state.recipe);
+
+});
