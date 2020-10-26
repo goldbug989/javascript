@@ -14,7 +14,6 @@ export default class List {
             ingredient
         }
         this.items.push(item);
-        console.log(item);
         return item;
     }
 
@@ -28,7 +27,6 @@ export default class List {
     }
 
     updateCount(id, newCount){
-        this.items.find(el => el.id === id).count = newCount;
-
+            this.items.find(el => el.id === id).count = newCount;   
     }
 }
