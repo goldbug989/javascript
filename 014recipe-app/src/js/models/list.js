@@ -8,11 +8,14 @@ export default class List {
 
     addItem (count, unit, ingredient){
         const item = {
-            id: uniqid,
+            id: uniqid(),
             count,
             unit,
             ingredient
         }
+        this.items.push(item);
+        console.log(item);
+        return item;
     }
 
     deleteItem (id){
