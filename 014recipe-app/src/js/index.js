@@ -101,7 +101,7 @@ const controlRecipe = async () => {
             recipeView.renderRecipe(state.recipe);
 
         }catch(err){
-            alert('Error processing recipe fool :(');
+            alert('Error processing recipe :(');
         }
         }
 
@@ -115,13 +115,16 @@ const controlRecipe = async () => {
 //event delegation ..use recipe element because it exists on load, buttons do not
 //handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
-
     if (e.target.matches('.btn-decrease , .btn-decrease *')) {
         //decrease button is clicked
-        state.recipe.updateServings('dec');
+        if (state.recipe.servings > 1){
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
     } else if (e.target.matches('.btn-increase , .btn-increase *')) {
         //increase button is clicked
         state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
     }
     console.log(state.recipe);
 
