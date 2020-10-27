@@ -160,6 +160,8 @@ elements.shopping.addEventListener('click',e =>{
  */
 //TESTING
 state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumLikes());
+
 
 
 const controlLike = () => {
@@ -190,6 +192,7 @@ const controlLike = () => {
         console.log(state.likes);
  
     }
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 
 
