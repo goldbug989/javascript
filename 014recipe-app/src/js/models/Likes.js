@@ -15,7 +15,7 @@ export default class Likes {
         this.likes.splice(index, 1);
     }
 
-    idLiked(id) {
+    isLiked(id) {
         //is recipe in likes array? if not findIndex returns -1
         return this.likes.findIndex(el => el.id === id) !== -1;
     }
