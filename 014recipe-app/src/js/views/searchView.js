@@ -18,10 +18,10 @@ export const highlightSelected = id => {
         el.classList.remove('results__link--active');
     })
     //select element w href attribute of id
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
 };
 
-const limitRecipeTitle = (title, limit = 19) => {
+export const limitRecipeTitle = (title, limit = 19) => {
     const newTitle = [];
     if (title.length > limit) {
         //split returns array with words, then use reducer method 
