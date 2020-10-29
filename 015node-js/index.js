@@ -24,6 +24,7 @@ const server = http.createServer((req, res) => {
     //parse the request into object
     const pathName = url.parse(req.url, true).pathname;
     const query = url.parse(req.url, true).query;
+    const id = url.parse(req.url, true).query.id;
 
     console.log(url.parse(req.url,true));
 
@@ -31,9 +32,9 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, {'constent-type':'test/html'});
         res.end('this is products page');
 
-    }else if (pathName === '/laptop'){
+    }else if (pathName === '/laptop' && id < laptopData.length) {
         res.writeHead(200, {'constent-type':'test/html'});
-        res.end('this is laptop page');
+        res.end(`this is laptop page for laptop ${id}`);
     }
 
     else {
