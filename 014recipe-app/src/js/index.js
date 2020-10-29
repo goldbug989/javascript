@@ -157,7 +157,6 @@ elements.shopping.addEventListener('click',e =>{
 /**
  * LIKES CONTROLLER
  */
-//TESTING
 
 
 const controlLike = () => {
@@ -190,6 +189,9 @@ const controlLike = () => {
     }
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
+
+
+
 
 //restore liked recipes on page load
 window.addEventListener('load',() => {
