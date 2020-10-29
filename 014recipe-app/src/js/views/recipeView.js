@@ -10,16 +10,17 @@ const formatCount = count => {
         //example count = 2.5 --> 2 1/2
         //                0.5 --> 1/2
         //split count into array of integer and decimal and parse the strings back to integers
-        const [int,dec] = count.toString().split('.').map(el => parseInt(el, 10));
+        const newCount = Math.round(count * 10000)/10000;
+        const [int,dec] = newCount.toString().split('.').map(el => parseInt(el, 10));
 
         if (!dec) return count;
 
         if (int === 0) {
-            const fr = new Fraction(count);
+            const fr = new Fraction(newCount);
             return `${fr.numerator}/${fr.denominator}`;
         }else{
             //create fraction just for decimal part of count
-            const fr = new Fraction(count - int);
+            const fr = new Fraction(newCount - int);
             return `${int} ${fr.numerator}/${fr.denominator}`;
         }
     } 
@@ -41,7 +42,6 @@ export const createIngredient = ingredient => `
 
 export const renderRecipe = (recipe, isLiked) => {
     const iconString = isLiked ? 'icon-heart' : 'icon-heart-outlined';
-    console.log(isLiked, iconString);
     const markup = `
     <figure class="recipe__fig">
     <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
