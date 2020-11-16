@@ -23,6 +23,7 @@ const server = http.createServer((req, res) => {
     
     //parse the request into object
     const pathName = url.parse(req.url, true).pathname;
+    console.log(pathName);
     //id=4 part of url is query
     const query = url.parse(req.url, true).query;
     //query is an object {id:'4'}
@@ -58,6 +59,15 @@ const server = http.createServer((req, res) => {
         });
     }
 
+
+    // IMAGES
+    else if ((/\.(jpg|jpeg|png|gif)$/i).test(pathName)) {
+        fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+            res.writeHead(200, { 'Content-type': 'image/jpg'});
+            res.end(data);
+        });
+    }
+
     //URL NOT FOUND
     else {
         res.writeHead(404, {'constent-type':'test/html'});
@@ -71,6 +81,7 @@ server.listen(1337,'127.0.0.1', () => {
     console.log('server is listening for requests now');
 });
 
+//FUNCTION REPLACE TEMPLATE
 function replaceTemplate(originalHtml, laptop) {
     let output = originalHtml.replace(/{%PRODUCTNAME%}/g,laptop.productName);
     output = output.replace(/{%IMAGE%}/g,laptop.image);
@@ -80,6 +91,6 @@ function replaceTemplate(originalHtml, laptop) {
     output = output.replace(/{%STORAGE%}/g,laptop.storage);
     output = output.replace(/{%RAM%}/g,laptop.ram);
     output = output.replace(/{%DESCRIPTION%}/g,laptop.description);
-    output = output.replace(/{%DESCRIPTION%}/g,laptop.id);
+    output = output.replace(/{%ID%}/g,laptop.id);
     return output;
 }
