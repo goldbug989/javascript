@@ -2,14 +2,28 @@
 var todos = ['item1','item2','item3'];
 
 //add an item
-todos.push('item4');
-console.log(todos);
+function addItem(item){
+  todos.push(item);
+}
 
 //edit an item
-todos[1] = 'item two edited';
+function edit(index,edited){
+  todos[index] = edited;
+}
 
 //remove an item 
-todos.splice(0,1);
+function remove(index){
+  if (index < todos.length && index > -1){
+    todos.splice(index,1);
+  } else{
+    console.log('error index not available');
+  }
+}
 
-//log items
+
+//main
+addItem('watch the next video');
+edit(0,'fernet');
+remove(3);
 console.log (todos);
+
