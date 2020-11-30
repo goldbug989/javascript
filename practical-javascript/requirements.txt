@@ -6,7 +6,14 @@ Version 1
 [x] it should have a way to remove a todo
 
 Version 2
-[] it should have a function to add a todo
-[] it should have a funcition to edit a todo
-[] it should have a function to remove a todo
+[x] it should have a function to add a todo
+[x] it should have a funcition to edit a todo
+[x] it should have a function to remove a todo
 
+Version 3
+[] 
+[]
+[]
+[]
+[]
+[]
