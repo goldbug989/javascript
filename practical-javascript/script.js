@@ -1,29 +1,20 @@
-//create a todo list
 var todos = ['item1','item2','item3'];
 
-//add an item
-function addItem(item){
-  todos.push(item);
+function displayTodos(){
+  console.log('my todos: ' , todos);
 }
 
-//edit an item
-function edit(index,edited){
-  todos[index] = edited;
+function addTodo(todo){
+  todos.push(todo);
+  displayTodos();
 }
 
-//remove an item 
-function remove(index){
-  if (index < todos.length && index > -1){
-    todos.splice(index,1);
-  } else{
-    console.log('error index not available');
-  }
+function changeTodo(position,newValue){
+  todos[position] = newValue;
+  displayTodos();
 }
 
-
-//main
-addItem('watch the next video');
-edit(0,'fernet');
-remove(3);
-console.log (todos);
-
+function deleteTodo(position){
+  todos.splice(position,1);
+  displayTodos();
+}
