@@ -11,9 +11,11 @@ Version 2
 [x] it should have a function to remove a todo
 
 Version 3
-[] 
-[]
-[]
-[]
+[x] We should initialize the todos variable with objects
+[x] the add function should add objects
+[x] the edit function should edit objects
+
+Version 4
+[x] it should have a functionn to toggle the todo
 []
 []
