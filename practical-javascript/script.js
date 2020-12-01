@@ -34,3 +34,4 @@ function toggleTodo(position){
  todos[position].completed ? todos[position].completed = false:
                               todos[position].completed = true;
 }
+
