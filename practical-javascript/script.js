@@ -5,10 +5,13 @@ var todos = [
   {todoText:'item 3', completed:false}
 ];
 
+toggleAll();
+
 displayTodos();
 
 function displayTodos(){
-  console.log('my todos: ' , todos);
+  todos.forEach(element => console.log(element.todoText + ' ' 
+                                      + element.completed));
 }
 
 function add(initialTodoText){
@@ -33,5 +36,9 @@ function deleteTodo(position){
 function toggleTodo(position){
  todos[position].completed ? todos[position].completed = false:
                               todos[position].completed = true;
+}
+
+function toggleAll(){
+  todos.forEach((cur,index) => toggleTodo(index));
 }
 

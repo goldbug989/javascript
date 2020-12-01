@@ -17,5 +17,8 @@ Version 3
 
 Version 4
 [x] it should have a functionn to toggle the todo
-[]
-[]
+
+Version 5
+[] it should have a function for displaying todos
+[] displaytodos should show the todoText property
+[] displaytodos should show the completed property
