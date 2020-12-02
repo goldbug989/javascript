@@ -5,9 +5,10 @@ var todos = [
   {todoText:'item 3', completed:false}
 ];
 
-toggleAll();
 
 displayTodos();
+
+document.querySelector('#todo').style.visibility = "visible";
 
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 
@@ -39,6 +40,22 @@ function toggleTodo(position){
 }
 
 function toggleAll(){
-  todos.forEach((cur,index) => toggleTodo(index));
+  var allCompleted = true;
+
+  //loop through todos to see if all completed
+  todos.forEach((el) => {
+    if (el.completed === false)
+      allCompleted = false;
+  });
+
+  //if all completed toggle todos to false
+  if (allCompleted){
+    todos.forEach((el) => el.completed = false);
+
+  //else if any not completed toggle todos to true
+  }else{
+    todos.forEach((el) => el.completed = true);
+  }
+
 }
 
