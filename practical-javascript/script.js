@@ -8,7 +8,9 @@ var todos = [
 
 displayTodos();
 
-document.querySelector('#todo').style.visibility = "visible";
+
+document.querySelector('#display-todos-btn').addEventListener("click",() =>
+document.querySelector('#todo').style.visibility = "visible");
 
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 

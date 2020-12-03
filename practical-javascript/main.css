@@ -39,6 +39,9 @@ button {
   border:none;
   border-radius:4px;
 }
+#display-todos-btn{
+  color:whitesmoke;
+}
 #todo{
   visibility: hidden;
 }
