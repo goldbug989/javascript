@@ -6,11 +6,21 @@ var todos = [
 ];
 
 
-displayTodos();
+var btnTodo = document.querySelector('#display-todos-btn');
+var btnToggleAll = document.querySelector('#toggleAll-btn');
 
 
-document.querySelector('#display-todos-btn').addEventListener("click",() =>
-document.querySelector('#todo').style.visibility = "visible");
+//event listeners
+btnTodo.addEventListener("click",() =>
+{
+  displayTodos();
+});
+
+btnToggleAll.addEventListener("click",() =>
+{
+  toggleAll(); 
+});
+
 
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 

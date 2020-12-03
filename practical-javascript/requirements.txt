@@ -3,6 +3,12 @@ Version 7
 [] the displaytodos button should run the displaytodos function
 []
 
+Version 7
+[x] it should have a displaytodos button
+[x] the displaytodos button should run the display todos function
+[x] it should have a toggleall button
+[x] the toggleall button should run the toggleall function
+
 Version 6
 [x] it should have a function for toggling all todos
 [x] if everything is true => change all to false
