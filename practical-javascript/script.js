@@ -11,15 +11,9 @@ var btnToggleAll = document.querySelector('#toggleAll-btn');
 
 
 //event listeners
-btnTodo.addEventListener("click",() =>
-{
-  displayTodos();
-});
+btnTodo.addEventListener("click",displayTodos);
 
-btnToggleAll.addEventListener("click",() =>
-{
-  toggleAll(); 
-});
+btnToggleAll.addEventListener("click",toggleAll);
 
 
 function displayTodos(){
