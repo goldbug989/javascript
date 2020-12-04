@@ -5,9 +5,14 @@ var todos = [
   {todoText:'item 3', completed:false}
 ];
 
-
+//store dolcument elements
 var btnTodo = document.querySelector('#display-todos-btn');
 var btnToggleAll = document.querySelector('#toggleAll-btn');
+var btnAdd = document.querySelector('#addTodo-btn');
+var btnEdit = document.querySelector('#editTodo-btn');
+var btnRemove = document.querySelector('#removeTodo-btn');
+var btnToggle = document.querySelector('#toggleTodo-btn');
+var addInput = document.querySelector('.new-todo');
 
 
 //event listeners
@@ -15,17 +20,21 @@ btnTodo.addEventListener("click",displayTodos);
 
 btnToggleAll.addEventListener("click",toggleAll);
 
+btnAdd.addEventListener("click",add);
 
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 
                                       + element.completed));
 }
 
-function add(initialTodoText){
-  //initialTodoText is a string
+function add(){
+  //get todo text from input box in html document
+  var initialTodoText = addInput.value;
   var todoObj = {todoText:initialTodoText,completed:false};
   todos.push(todoObj);
   displayTodos();
+  //clear input field
+  addInput.value = '';
 }
 
 function edit(position,newTodoText){

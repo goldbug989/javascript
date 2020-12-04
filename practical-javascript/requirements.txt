@@ -1,7 +1,10 @@
-Version 7
-[] it should have a button for display todos
-[] the displaytodos button should run the displaytodos function
-[]
+
+
+Version 8
+[] there should be an add todo button
+[] there should be an edit todo button
+[] there should be a button for remove todo
+[] there should be a button for toggle todo
 
 Version 7
 [x] it should have a displaytodos button
