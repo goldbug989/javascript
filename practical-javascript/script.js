@@ -13,6 +13,8 @@ var btnEdit = document.querySelector('#editTodo-btn');
 var btnRemove = document.querySelector('#removeTodo-btn');
 var btnToggle = document.querySelector('#toggleTodo-btn');
 var addInput = document.querySelector('.new-todo');
+var editPositionInput = document.querySelector('#edit-position-input');
+var editInput = document.querySelector('#edit-todo');
 
 
 //event listeners
@@ -21,6 +23,8 @@ btnTodo.addEventListener("click",displayTodos);
 btnToggleAll.addEventListener("click",toggleAll);
 
 btnAdd.addEventListener("click",add);
+
+btnEdit.addEventListener("click",edit);
 
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 
@@ -37,10 +41,15 @@ function add(){
   addInput.value = '';
 }
 
-function edit(position,newTodoText){
+function edit(){
+  var position = editPositionInput.value;
+  var newTodoText = editInput.value;
   //newTodoText is a string
   todos[position].todoText = newTodoText;
   displayTodos();
+  //clear input fields
+  editPositionInput.value = '';
+  editInput.value = '';
 }
 
 
