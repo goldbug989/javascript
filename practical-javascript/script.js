@@ -11,10 +11,14 @@ var btnToggleAll = document.querySelector('#toggleAll-btn');
 var btnAdd = document.querySelector('#addTodo-btn');
 var btnEdit = document.querySelector('#editTodo-btn');
 var btnRemove = document.querySelector('#removeTodo-btn');
+var addInput = document.querySelector('#new-todo');
 var btnToggle = document.querySelector('#toggleTodo-btn');
-var addInput = document.querySelector('.new-todo');
 var editPositionInput = document.querySelector('#edit-position-input');
 var editInput = document.querySelector('#edit-todo');
+var deletePositionInput = document.querySelector('#delete-position-input');
+var togglePositionInput = document.querySelector('#toggle-position-input');
+
+
 
 
 //event listeners
@@ -25,6 +29,10 @@ btnToggleAll.addEventListener("click",toggleAll);
 btnAdd.addEventListener("click",add);
 
 btnEdit.addEventListener("click",edit);
+
+btnRemove.addEventListener("click",deleteTodo);
+
+btnToggle.addEventListener("click",toggleTodo);
 
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 
@@ -37,6 +45,7 @@ function add(){
   var todoObj = {todoText:initialTodoText,completed:false};
   todos.push(todoObj);
   displayTodos();
+
   //clear input field
   addInput.value = '';
 }
@@ -44,23 +53,29 @@ function add(){
 function edit(){
   var position = editPositionInput.value;
   var newTodoText = editInput.value;
+
   //newTodoText is a string
   todos[position].todoText = newTodoText;
+
   displayTodos();
+
   //clear input fields
   editPositionInput.value = '';
   editInput.value = '';
 }
 
 
-function deleteTodo(position){
-  todos.splice(position,1);
-  displayTodos();
+function deleteTodo(){
+  todos.splice(deletePositionInput.value,1);
+
+  deletePositionInput.value = '';
 }
 
-function toggleTodo(position){
+function toggleTodo(){
+ var position = togglePositionInput.value;
  todos[position].completed ? todos[position].completed = false:
                               todos[position].completed = true;
+ togglePositionInput.value = '';
 }
 
 function toggleAll(){
