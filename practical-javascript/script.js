@@ -53,6 +53,8 @@ function displayTodos(){
                                       + element.completed));
 }
 
+
+//TODO --ADD THIS TO DISPLAY TODOS FN
 function add(){
   //get todo text from input box in html document
   var initialTodoText = addInput.value;
