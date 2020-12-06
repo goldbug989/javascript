@@ -17,6 +17,20 @@ var editPositionInput = document.querySelector('#edit-position-input');
 var editInput = document.querySelector('#edit-todo');
 var deletePositionInput = document.querySelector('#delete-position-input');
 var togglePositionInput = document.querySelector('#toggle-position-input');
+var todoListUl = document.getElementById('todo-list-ul');
+
+
+todos.forEach((curr, index)=> {
+  var element = document.createElement("li");
+
+  var textNode = document.createTextNode(todos[index].todoText);
+  
+  element.appendChild(textNode);
+  console.log(element);
+  todoListUl.appendChild(element);
+});
+
+
 
 
 
