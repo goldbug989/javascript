@@ -51,3 +51,7 @@ button {
 #todo{
   visibility:hidden;
 }
+
+ul{
+  list-style:none;
+}

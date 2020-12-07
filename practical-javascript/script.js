@@ -20,21 +20,6 @@ var togglePositionInput = document.querySelector('#toggle-position-input');
 var todoListUl = document.getElementById('todo-list-ul');
 
 
-todos.forEach((curr, index)=> {
-  var element = document.createElement("li");
-
-  var textNode = document.createTextNode(todos[index].todoText);
-  
-  element.appendChild(textNode);
-  console.log(element);
-  todoListUl.appendChild(element);
-});
-
-
-
-
-
-
 //event listeners
 btnTodo.addEventListener("click",displayTodos);
 
@@ -48,13 +33,23 @@ btnRemove.addEventListener("click",deleteTodo);
 
 btnToggle.addEventListener("click",toggleTodo);
 
+
 function displayTodos(){
   todos.forEach(element => console.log(element.todoText + ' ' 
                                       + element.completed));
+
+  // CLEAR DISPLAY FIRST
+  todoListUl.innerHTML = '';
+  
+  //CREATE LI FOR EACH TODO IN ARRAY
+  todos.forEach(curr=> {
+    todoListUl.innerHTML += `<li>${curr.todoText}   ${curr.completed}</li>`;
+   });
+  
+                                      
 }
 
 
-//TODO --ADD THIS TO DISPLAY TODOS FN
 function add(){
   //get todo text from input box in html document
   var initialTodoText = addInput.value;
@@ -111,6 +106,8 @@ function toggleAll(){
   }else{
     todos.forEach((el) => el.completed = true);
   }
+
+  displayTodos();
 
 }
 
