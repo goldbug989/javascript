@@ -6,11 +6,9 @@ var todos = [
 ];
 
 //store dolcument elements
-var btnTodo = document.querySelector('#display-todos-btn');
 var btnToggleAll = document.querySelector('#toggleAll-btn');
 var btnAdd = document.querySelector('#addTodo-btn');
 var btnEdit = document.querySelector('#editTodo-btn');
-var btnRemove = document.querySelector('#removeTodo-btn');
 var addInput = document.querySelector('#new-todo');
 var btnToggle = document.querySelector('#toggleTodo-btn');
 var editPositionInput = document.querySelector('#edit-position-input');
@@ -18,10 +16,12 @@ var editInput = document.querySelector('#edit-todo');
 var deletePositionInput = document.querySelector('#delete-position-input');
 var togglePositionInput = document.querySelector('#toggle-position-input');
 var todoListUl = document.getElementById('todo-list-ul');
+var checkbox = document.querySelector('#toto');
+
+displayTodos();
 
 
 //event listeners
-btnTodo.addEventListener("click",displayTodos);
 
 btnToggleAll.addEventListener("click",toggleAll);
 
@@ -29,9 +29,14 @@ btnAdd.addEventListener("click",add);
 
 btnEdit.addEventListener("click",edit);
 
-btnRemove.addEventListener("click",deleteTodo);
-
 btnToggle.addEventListener("click",toggleTodo);
+
+todoListUl.addEventListener("click",(event) =>{
+  console.log(event.target);
+  let targetElement = event.target;
+  let selector = 'input';
+});
+
 
 
 function displayTodos(){
@@ -41,12 +46,12 @@ function displayTodos(){
   // CLEAR DISPLAY FIRST
   todoListUl.innerHTML = '';
   
-  //CREATE LI FOR EACH TODO IN ARRAY
+  //CREATE HTML LIST ITEM FOR EACH TODO IN ARRAY
   todos.forEach(curr=> {
-    todoListUl.innerHTML += `<li>${curr.todoText}   ${curr.completed}</li>`;
-   });
-  
-                                      
+   todoListUl.innerHTML += `<div id='todo-item'><input type="checkbox"  id = "toto" name="todo"
+    ${curr.completed ? 'checked':''} >
+    <label for="todo">${curr.todoText}</label>  <button id="removeTodo-btn">remove</button></div>`;
+   });                                   
 }
 
 
@@ -60,6 +65,7 @@ function add(){
   //clear input field
   addInput.value = '';
 }
+
 
 function edit(){
   var position = editPositionInput.value;
@@ -76,11 +82,13 @@ function edit(){
 }
 
 
+
 function deleteTodo(){
   todos.splice(deletePositionInput.value,1);
 
   deletePositionInput.value = '';
 }
+
 
 function toggleTodo(){
  var position = togglePositionInput.value;
@@ -88,6 +96,7 @@ function toggleTodo(){
                               todos[position].completed = true;
  togglePositionInput.value = '';
 }
+
 
 function toggleAll(){
   var allCompleted = true;
@@ -106,6 +115,8 @@ function toggleAll(){
   }else{
     todos.forEach((el) => el.completed = true);
   }
+
+//******************************************************* */
 
   displayTodos();
 

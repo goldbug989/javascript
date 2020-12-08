@@ -1,7 +1,12 @@
+Version 10
+[] there should be a remove button for each todo
+[] 
+[]
+
 Version 9
-[]
-[]
-[]
+[x] there should be an li for each todo
+[x] each list item should show todotext property
+[x] each list item should show completed property
 
 Version 8
 [x] there should be an add todo button
