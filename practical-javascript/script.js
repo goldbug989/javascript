@@ -16,7 +16,7 @@ var editInput = document.querySelector('#edit-todo');
 var deletePositionInput = document.querySelector('#delete-position-input');
 var togglePositionInput = document.querySelector('#toggle-position-input');
 var todoListUl = document.getElementById('todo-list-ul');
-var checkbox = document.querySelector('#toto');
+
 
 displayTodos();
 
@@ -29,12 +29,11 @@ btnAdd.addEventListener("click",add);
 
 btnEdit.addEventListener("click",edit);
 
-btnToggle.addEventListener("click",toggleTodo);
-
 todoListUl.addEventListener("click",(event) =>{
   console.log(event.target);
-  let targetElement = event.target;
-  let selector = 'input';
+  // if(event.target===document.querySelector('#remove0')){
+  //   deleteTodo(0);}
+
 });
 
 
@@ -47,11 +46,18 @@ function displayTodos(){
   todoListUl.innerHTML = '';
   
   //CREATE HTML LIST ITEM FOR EACH TODO IN ARRAY
-  todos.forEach(curr=> {
-   todoListUl.innerHTML += `<div id='todo-item'><input type="checkbox"  id = "toto" name="todo"
+  todos.forEach((curr,index)=> {
+   todoListUl.innerHTML += `<div id="todo-item"><input type="checkbox"  id = "todo${index}" name="todo"
     ${curr.completed ? 'checked':''} >
-    <label for="todo">${curr.todoText}</label>  <button id="removeTodo-btn">remove</button></div>`;
-   });                                   
+    <label for="todo">${curr.todoText}</label>  <button id="remove${index}">remove</button></div>`;
+  });  
+  
+  //CREATE EVENT LISTENERS FOR INPUTS AND REMOVE BTN
+   todos.forEach((curr,index)=>{
+   document.getElementById(`todo${index}`).addEventListener("click",toggleTodo);
+   document.querySelector(`#remove${index}`).addEventListener("click",deleteTodo);
+  });
+
 }
 
 
@@ -83,18 +89,24 @@ function edit(){
 
 
 
-function deleteTodo(){
-  todos.splice(deletePositionInput.value,1);
+function deleteTodo(event){
+  //event.target.id is a string ->remove0 index is the zero
+  var index = event.target.id.slice(5);
+  todos.splice(index,1);
 
-  deletePositionInput.value = '';
+  var item = event.target.parentNode;
+  item.innerHTML = '';
+
+  displayTodos();
+
 }
 
 
-function toggleTodo(){
- var position = togglePositionInput.value;
- todos[position].completed ? todos[position].completed = false:
-                              todos[position].completed = true;
- togglePositionInput.value = '';
+function toggleTodo(event){
+//  todos[position].completed ? todos[position].completed = false:
+//                               todos[position].completed = true;
+//  togglePositionInput.value = '';
+    console.log('new toggletodo function is running');
 }
 
 

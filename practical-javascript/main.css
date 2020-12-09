@@ -58,8 +58,9 @@ ul{
 #todo-list-ul{
   display:flex;
   flex-flow:column nowrap;
+  height:20vh;
   width:50vw;
-  justify-content:space-between;
+  justify-content:space-around;
 
 }
 #todo-item{
