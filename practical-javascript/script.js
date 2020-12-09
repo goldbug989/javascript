@@ -103,10 +103,12 @@ function deleteTodo(event){
 
 
 function toggleTodo(event){
-//  todos[position].completed ? todos[position].completed = false:
-//                               todos[position].completed = true;
-//  togglePositionInput.value = '';
-    console.log('new toggletodo function is running');
+    //GET INDEX FROM TARGET ID STRING EXAMPLE ->TODO2
+    var index = event.target.id.slice(4);
+    console.log (index);
+    //TOGGLE TODO ARRAY ON INDEX
+    todos[index].completed ? todos[index].completed = false:
+                               todos[index].completed = true;
 }
 
 
