@@ -1,10 +1,14 @@
+Version 12
+[x] each todo should have an edit button
+[x] the edit button shoudld edit the text in todo object
+
 Version 11
-[] there should be a toggle button for each todo
-[] the toggle button should toggle todo array completed property 
+[x] there should be a toggle button for each todo
+[x] the toggle button should toggle todo array completed property 
 
 Version 10
-[] there should be a remove button for each todo
-[] remove button should remove array item from todos
+[x] there should be a remove button for each todo
+[x] remove button should remove array item from todos
 
 Version 9
 [x] there should be an li for each todo

@@ -10,11 +10,8 @@ var btnToggleAll = document.querySelector('#toggleAll-btn');
 var btnAdd = document.querySelector('#addTodo-btn');
 var btnEdit = document.querySelector('#editTodo-btn');
 var addInput = document.querySelector('#new-todo');
-var btnToggle = document.querySelector('#toggleTodo-btn');
 var editPositionInput = document.querySelector('#edit-position-input');
 var editInput = document.querySelector('#edit-todo');
-var deletePositionInput = document.querySelector('#delete-position-input');
-var togglePositionInput = document.querySelector('#toggle-position-input');
 var todoListUl = document.getElementById('todo-list-ul');
 
 
@@ -26,8 +23,6 @@ displayTodos();
 btnToggleAll.addEventListener("click",toggleAll);
 
 btnAdd.addEventListener("click",add);
-
-btnEdit.addEventListener("click",edit);
 
 todoListUl.addEventListener("click",(event) =>{
   console.log(event.target);
@@ -47,15 +42,23 @@ function displayTodos(){
   
   //CREATE HTML LIST ITEM FOR EACH TODO IN ARRAY
   todos.forEach((curr,index)=> {
-   todoListUl.innerHTML += `<div id="todo-item"><input type="checkbox"  id = "todo${index}" name="todo"
-    ${curr.completed ? 'checked':''} >
-    <label for="todo">${curr.todoText}</label>  <button id="remove${index}">remove</button></div>`;
+   todoListUl.innerHTML += 
+   `<div id="todo-item"><input type="checkbox"  id = "todo${index}" name="todo"
+        ${curr.completed ? 'checked':''} >
+    <label for="todo" id = "label${index}">${curr.todoText}</label>
+     <div id = "button-div">
+       <button id="edit${index}">edit</button>
+       <button id="remove${index}">remove</button>
+     </div>
+  </div>`
+    ;
   });  
   
-  //CREATE EVENT LISTENERS FOR INPUTS AND REMOVE BTN
+  //CREATE EVENT LISTENERS FOR CHECKBOX,REMOVE BTN, AND EDIT BTN
    todos.forEach((curr,index)=>{
    document.getElementById(`todo${index}`).addEventListener("click",toggleTodo);
    document.querySelector(`#remove${index}`).addEventListener("click",deleteTodo);
+   document.getElementById(`edit${index}`).addEventListener("click",edit);
   });
 
 }
@@ -73,18 +76,16 @@ function add(){
 }
 
 
-function edit(){
-  var position = editPositionInput.value;
-  var newTodoText = editInput.value;
+function edit(event){
+  var position = event.target.id.slice(4);
+  var newTodoText = window.prompt();
+  console.log(position + 'position' + ' newTodoText');
 
   //newTodoText is a string
   todos[position].todoText = newTodoText;
 
   displayTodos();
 
-  //clear input fields
-  editPositionInput.value = '';
-  editInput.value = '';
 }
 
 

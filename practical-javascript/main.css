@@ -11,6 +11,11 @@ input {
     margin: .4rem;
 }
 
+header{
+  width:60vw;
+  height:7vh;
+}
+
 main{
   display:flex;
   flex-wrap:nowrap;
@@ -34,12 +39,13 @@ div{
   border-radius:4px;
   padding:5px;
   margin-bottom:10px;
+  border:none;
 }
 
 button {
   background-color:blue;
   height:3vh;
-  width: 10vh;
+  width:10vw;
   color:white;
   border-radius:4px;
 }
@@ -67,4 +73,13 @@ ul{
   display:flex;
   flex-flow:row nowrap;
   justify-content:space-between;
+  align-items:center;
+  background-color:whitesmoke;
+  width:50vw;
+}
+#button-div{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:40%;
 }
