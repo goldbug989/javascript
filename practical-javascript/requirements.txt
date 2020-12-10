@@ -1,6 +1,8 @@
 Version 12
 [x] each todo should have an edit button
 [x] the edit button shoudld edit the text in todo object
+[x] handle the cancel on edit prompt
+[x] edit prompt empty and clicks ok do nothing
 
 Version 11
 [x] there should be a toggle button for each todo
